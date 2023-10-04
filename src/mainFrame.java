@@ -36,7 +36,6 @@ public class mainFrame extends javax.swing.JFrame {
 
     static Connection conn;
     static Statement st;
-    double f;
     String attachment_path;
     
     /**
@@ -56,18 +55,22 @@ public class mainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         parentPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
         control = new javax.swing.JPanel();
         start = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         sampleFreq = new javax.swing.JTextField();
         plotGraph = new javax.swing.JButton();
         lbl1 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         upload = new javax.swing.JButton();
-        lbl2 = new javax.swing.JLabel();
+        threesample = new javax.swing.JRadioButton();
+        mann = new javax.swing.JRadioButton();
+        voltRelay = new javax.swing.JRadioButton();
+        currRelay = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ta = new javax.swing.JTextArea();
 
@@ -80,6 +83,7 @@ public class mainFrame extends javax.swing.JFrame {
         parentPanel.setBackground(new java.awt.Color(21, 36, 60));
         parentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0)));
         parentPanel.setForeground(new java.awt.Color(255, 255, 255));
+        parentPanel.setPreferredSize(new java.awt.Dimension(1790, 660));
         parentPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setBackground(new java.awt.Color(21, 36, 60));
@@ -88,7 +92,7 @@ public class mainFrame extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/blue_heading.png"))); // NOI18N
         jLabel5.setToolTipText("");
-        parentPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1530, 100));
+        parentPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1560, 100));
 
         mainPanel.setBackground(new java.awt.Color(21, 36, 60));
         mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 0), 1, true));
@@ -99,6 +103,7 @@ public class mainFrame extends javax.swing.JFrame {
         control.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         start.setBackground(new java.awt.Color(255, 255, 255));
+        start.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         start.setText("Start");
         start.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         start.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -111,56 +116,80 @@ public class mainFrame extends javax.swing.JFrame {
                 startActionPerformed(evt);
             }
         });
-        control.add(start, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 433, 60));
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Set Frequency");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        control.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 433, 52));
+        control.add(start, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 920, 60));
 
         sampleFreq.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         sampleFreq.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         sampleFreq.setText("50000");
         sampleFreq.setBorder(null);
-        control.add(sampleFreq, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 67, 433, 64));
+        control.add(sampleFreq, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 433, 64));
 
         plotGraph.setBackground(new java.awt.Color(255, 255, 255));
+        plotGraph.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         plotGraph.setText("Plot Graph");
         plotGraph.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plotGraphActionPerformed(evt);
             }
         });
-        control.add(plotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 433, 63));
+        control.add(plotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 433, 63));
 
         lbl1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lbl1.setForeground(new java.awt.Color(255, 255, 0));
         lbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl1.setText("Fault Detected !!!");
-        control.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, 433, 53));
+        control.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 433, 53));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sampling Frequency:");
-        control.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 36, 190, 30));
+        control.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 190, 30));
 
         upload.setBackground(new java.awt.Color(255, 255, 255));
+        upload.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         upload.setText("Attach CSV File");
         upload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadActionPerformed(evt);
             }
         });
-        control.add(upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 433, 63));
+        control.add(upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, 433, 63));
 
-        lbl2.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        lbl2.setForeground(new java.awt.Color(0, 255, 0));
-        lbl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        control.add(lbl2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, 433, 53));
+        threesample.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(threesample);
+        threesample.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        threesample.setForeground(new java.awt.Color(255, 255, 255));
+        threesample.setText("Three Sample Technique");
+        threesample.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        threesample.setOpaque(false);
+        control.add(threesample, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 430, 60));
+
+        mann.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(mann);
+        mann.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        mann.setForeground(new java.awt.Color(255, 255, 255));
+        mann.setText("Mann Morrison Technique");
+        mann.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        mann.setOpaque(false);
+        control.add(mann, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 430, 60));
+
+        voltRelay.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(voltRelay);
+        voltRelay.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        voltRelay.setForeground(new java.awt.Color(255, 255, 255));
+        voltRelay.setText("Voltage Relay");
+        voltRelay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        voltRelay.setOpaque(false);
+        control.add(voltRelay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 440, 30));
+
+        currRelay.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(currRelay);
+        currRelay.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        currRelay.setForeground(new java.awt.Color(255, 255, 255));
+        currRelay.setText("Current Relay");
+        currRelay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        currRelay.setOpaque(false);
+        control.add(currRelay, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 430, 30));
 
         ta.setColumns(20);
         ta.setRows(5);
@@ -184,8 +213,8 @@ public class mainFrame extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2)
-                    .addComponent(control, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(control, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         parentPanel.add(mainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 1790, 550));
@@ -195,55 +224,289 @@ public class mainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-           f = Integer.parseInt(sampleFreq.getText());
-           sampleFreq.setEnabled(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
         // TODO add your handling code here:
-        ta.append("Processing Started\n");
-        boolean isfault = false;
-        double deltaT = 1/f;
-        final double omega = 314.159265;
-        try{
-            Class.forName("java.sql.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
-            st = conn.createStatement();
-            String stmt="SELECT Vt FROM readings";
+        // MANN MORRISON TECHNIQUE + VOLTAGE RELAY SELECTED
+        if(mann.isSelected() && voltRelay.isSelected()){
+            ta.append("MANN MORRISON TECHNIQUE + VOLTAGE RELAY SELECTED \n Processing Started\n");
+            boolean isfault = false;
+            double f = Integer.parseInt(sampleFreq.getText());
+            double deltaT = 1/f;
+            final double omega = 314.159265;
+            try{
+                Class.forName("java.sql.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                st = conn.createStatement();
+                String stmt="SELECT Vt FROM readings";
                 st.executeQuery(stmt);  
                 String sql=stmt;
                 ResultSet rs = st.executeQuery(sql);
                 ta.append("Connection Established\n");
                 rs.next();
-                double prev, curr, next;
+                double prev, curr, nxt;
                 prev = rs.getDouble("Vt");
                 rs.next();
                 curr = rs.getDouble("Vt");
                 rs.next();
-                next = rs.getDouble("Vt");
+                nxt = rs.getDouble("Vt");
                 rs.next();
+                
+                System.out.println("prev "+prev);
+                System.out.println("curr "+curr);
+                System.out.println("next "+nxt);
                     
                 while(isfault != true){
-                        double vDash = ((next - prev)/(2*deltaT))/omega;
+                        double diff = (nxt - prev);
+                        System.out.println("difference "+diff);
+                        double vDash1 = diff/(0.00004);
+                        System.out.println("vdash1 "+vDash1);
+                        double vDash = vDash1/omega;
+                        System.out.println("vDash "+vDash);
                         double vmsq = Math.pow(vDash, 2);
-                        double vm = Math.sqrt(vmsq);
-                        ta.append(vm+"");
-                        if(vm != 230){
+                        System.out.println("vmsq "+vmsq);
+                        double vtsq = Math.pow(curr, 2);
+                        System.out.println("vtsq "+vtsq);
+                        double addition = vmsq+vtsq;
+                        System.out.println("add "+addition);
+                        double vm = Math.sqrt(addition);
+                        System.out.println("Vm "+vm);
+                        double tValue = Math.floor(vm);
+                        System.out.println("Final Answer "+tValue);
+                        ta.append("Vm : "+tValue+ " at Vt :" + curr + "\n");
+                        
+                        
+                        if(tValue > 500.00){
                             isfault = true;
-                            ta.append("FAULT OCCURED !!!");
+                            ta.append("FAULT OCCURED at " + curr + " Vm is " + tValue);
+                            ta.setForeground(Color.red);
                             lbl1.setVisible(true);
                             break;
                         }
                         prev = curr;
-                        curr = next;
+                        curr = nxt;
                         rs.next();
-                        next = rs.getFloat("Vt");
+                        nxt = rs.getDouble("Vt");
+                        ta.setForeground(Color.green);
                         
-                }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
+                        System.out.println("prev2 "+prev);
+                        System.out.println("curr2 "+curr);
+                        System.out.println("next2 "+nxt);
+                    }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        // MANN MORRISON TECHNIQUE + CURRENT RELAY SELECTED
+        else if(mann.isSelected() && currRelay.isSelected()){
+            ta.append("MANN MORRISON TECHNIQUE + CURRENT RELAY SELECTED \n Processing Started\n");
+            boolean isfault = false;
+            double f = Integer.parseInt(sampleFreq.getText());
+            double deltaT = 1/f;
+            final double omega = 314.159265;
+            try{
+                Class.forName("java.sql.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                st = conn.createStatement();
+                String stmt="SELECT It FROM readings";
+                st.executeQuery(stmt);  
+                String sql=stmt;
+                ResultSet rs = st.executeQuery(sql);
+                ta.append("Connection Established\n");
+                rs.next();
+                double prev, curr, nxt;
+                prev = rs.getDouble("It");
+                rs.next();
+                curr = rs.getDouble("It");
+                rs.next();
+                nxt = rs.getDouble("It");
+                rs.next();
+                
+                System.out.println("prev "+prev);
+                System.out.println("curr "+curr);
+                System.out.println("next "+nxt);
+                    
+                while(isfault != true){
+                        double diff = (nxt - prev);
+                        System.out.println("difference "+diff);
+                        double iDash1 = diff/(0.00004);
+                        System.out.println("Idash1 "+iDash1);
+                        double iDash = iDash1/omega;
+                        System.out.println("IDash "+iDash);
+                        double imsq = Math.pow(iDash, 2);
+                        System.out.println("Imsq "+imsq);
+                        double itsq = Math.pow(curr, 2);
+                        System.out.println("Itsq "+itsq);
+                        double addition = imsq+itsq;
+                        System.out.println("add "+addition);
+                        double im = Math.sqrt(addition);
+                        System.out.println("Im "+im);
+                        double tValue = Math.floor(im);
+                        System.out.println("Final Answer "+tValue);
+                        ta.append("Im : "+tValue+ " at It :" + curr + "\n");
+                        
+                        
+                        if(tValue > 500.00){
+                            isfault = true;
+                            ta.append("FAULT OCCURED at " + curr + " Im is " + tValue);
+                            ta.setForeground(Color.red);
+                            lbl1.setVisible(true);
+                            break;
+                        }
+                        prev = curr;
+                        curr = nxt;
+                        rs.next();
+                        nxt = rs.getDouble("It");
+                        ta.setForeground(Color.green);
+                        
+                        System.out.println("prev2 "+prev);
+                        System.out.println("curr2 "+curr);
+                        System.out.println("next2 "+nxt);
+                    }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
+        // THREE SAMPLE TECHNIQUE + VOLTAGE RELAY SELECTED
+        else if(threesample.isSelected() && voltRelay.isSelected()){
+            ta.append("THREE SAMPLE TECHNIQUE + VOLTAGE RELAY SELECTED \n Processing Started\n");
+            boolean isfault = false;
+            double f = Integer.parseInt(sampleFreq.getText());
+            double deltaT = 1/f;
+            final double omega = 314.159265;
+            try{
+                Class.forName("java.sql.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                st = conn.createStatement();
+                String stmt="SELECT Vt FROM readings";
+                st.executeQuery(stmt);  
+                String sql=stmt;
+                ResultSet rs = st.executeQuery(sql);
+                ta.append("Connection Established\n");
+                rs.next();
+                double prev, curr, nxt;
+                prev = rs.getDouble("Vt");
+                rs.next();
+                curr = rs.getDouble("Vt");
+                rs.next();
+                nxt = rs.getDouble("Vt");
+                rs.next();
+                
+                System.out.println("prev "+prev);
+                System.out.println("curr "+curr);
+                System.out.println("next "+nxt);
+                    
+                while(isfault != true){
+                        double diff = (nxt - prev);
+                        System.out.println("difference "+diff);
+                        double vDash1 = diff/(0.00004);
+                        System.out.println("vdash1 "+vDash1);
+                        double vDash = vDash1/omega;
+                        System.out.println("vDash "+vDash);
+                        double vmsq = Math.pow(vDash, 2);
+                        System.out.println("vmsq "+vmsq);
+                        double vtsq = Math.pow(curr, 2);
+                        System.out.println("vtsq "+vtsq);
+                        double addition = vmsq+vtsq;
+                        System.out.println("add "+addition);
+                        double vm = Math.sqrt(addition);
+                        System.out.println("Vm "+vm);
+                        double tValue = Math.floor(vm);
+                        System.out.println("Final Answer "+tValue);
+                        ta.append("Vm : "+tValue+ " at Vt :" + curr + "\n");
+                        
+                        
+                        if(tValue > 500.00){
+                            isfault = true;
+                            ta.append("FAULT OCCURED at " + curr + " Vm is " + tValue);
+                            ta.setForeground(Color.red);
+                            lbl1.setVisible(true);
+                            break;
+                        }
+                        prev = curr;
+                        curr = nxt;
+                        rs.next();
+                        nxt = rs.getDouble("Vt");
+                        ta.setForeground(Color.green);
+                        
+                        System.out.println("prev2 "+prev);
+                        System.out.println("curr2 "+curr);
+                        System.out.println("next2 "+nxt);
+                    }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+        
+        // THREE SAMPLE TECHNIQUE + CURRENT RELAY SELECTED
+        else if(threesample.isSelected() && currRelay.isSelected()){
+            ta.append("THREE SAMPLE TECHNIQUE + CURRENT RELAY SELECTED \n Processing Started\n");
+            boolean isfault = false;
+            double f = Integer.parseInt(sampleFreq.getText());
+            double deltaT = 1/f;
+            final double omega = 314.159265;
+            try{
+                Class.forName("java.sql.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                st = conn.createStatement();
+                String stmt="SELECT Vt FROM readings";
+                st.executeQuery(stmt);  
+                String sql=stmt;
+                ResultSet rs = st.executeQuery(sql);
+                ta.append("Connection Established\n");
+                rs.next();
+                double prev, curr, nxt;
+                prev = rs.getDouble("Vt");
+                rs.next();
+                curr = rs.getDouble("Vt");
+                rs.next();
+                nxt = rs.getDouble("Vt");
+                rs.next();
+                
+                System.out.println("prev "+prev);
+                System.out.println("curr "+curr);
+                System.out.println("next "+nxt);
+                    
+                while(isfault != true){
+                        double diff = (nxt - prev);
+                        System.out.println("difference "+diff);
+                        double vDash1 = diff/(0.00004);
+                        System.out.println("vdash1 "+vDash1);
+                        double vDash = vDash1/omega;
+                        System.out.println("vDash "+vDash);
+                        double vmsq = Math.pow(vDash, 2);
+                        System.out.println("vmsq "+vmsq);
+                        double vtsq = Math.pow(curr, 2);
+                        System.out.println("vtsq "+vtsq);
+                        double addition = vmsq+vtsq;
+                        System.out.println("add "+addition);
+                        double vm = Math.sqrt(addition);
+                        System.out.println("Vm "+vm);
+                        double tValue = Math.floor(vm);
+                        System.out.println("Final Answer "+tValue);
+                        ta.append("Vm : "+tValue+ " at Vt :" + curr + "\n");
+                        
+                        
+                        if(tValue > 500.00){
+                            isfault = true;
+                            ta.append("FAULT OCCURED at " + curr + " Vm is " + tValue);
+                            ta.setForeground(Color.red);
+                            lbl1.setVisible(true);
+                            break;
+                        }
+                        prev = curr;
+                        curr = nxt;
+                        rs.next();
+                        nxt = rs.getDouble("Vt");
+                        ta.setForeground(Color.green);
+                        
+                        System.out.println("prev2 "+prev);
+                        System.out.println("curr2 "+curr);
+                        System.out.println("next2 "+nxt);
+                    }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
         }
     }//GEN-LAST:event_startActionPerformed
 
@@ -285,16 +548,20 @@ public class mainFrame extends javax.swing.JFrame {
             String line;
             while((line = br.readLine())!= null){
                 String[] value = line.split(",");
-                st = conn.createStatement();
-                String sql = "INSERT INTO readings(row_id, sampTime, Vt, It) VALUES('"+value[0]+"','"+value[1]+"','"+value[2]+"','"+value[3]+"');";
-                st.executeQuery(sql);  
+                System.out.println("Value 1 :"+value[0]+"Value 2 :"+value[1]+"Value 3 :"+value[2]);
+                Class.forName("java.sql.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                String sql = "INSERT INTO readings(sampTime, Vt, It) VALUES('"+value[1]+"','"+value[2]+"','"+value[3]+"');";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.executeUpdate();
             }
             br.close();
         } catch (Exception e ) {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        lbl2.setText("Suucessful Action..");
+        lbl1.setText("Suucessful Action..");
+        new table().setVisible(true);
     }//GEN-LAST:event_uploadActionPerformed
 
     /**
@@ -333,19 +600,23 @@ public class mainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JPanel control;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JRadioButton currRelay;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl1;
-    private javax.swing.JLabel lbl2;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JRadioButton mann;
     private javax.swing.JPanel parentPanel;
     private javax.swing.JButton plotGraph;
     private javax.swing.JTextField sampleFreq;
     private javax.swing.JButton start;
     private javax.swing.JTextArea ta;
+    private javax.swing.JRadioButton threesample;
     private javax.swing.JButton upload;
+    private javax.swing.JRadioButton voltRelay;
     // End of variables declaration//GEN-END:variables
 }
