@@ -42,84 +42,139 @@ public class table extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        combo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                formFocusGained(evt);
-            }
-        });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(21, 36, 60));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 51)));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jTable1.setForeground(new java.awt.Color(21, 36, 60));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Row_Id", "Sampling Time", "Vt", "It", "Vm", "Im", "isFault", "Time of Fault"
+                "Row_Id", "Sampling Time", "Vt", "It", "Vm", "Im", "voltage Relay", "current Relay", "Time of Fault"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jTable1MouseDragged(evt);
-            }
-        });
-        jTable1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTable1FocusGained(evt);
-            }
-        });
-        jTable1.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jTable1ComponentShown(evt);
-            }
-        });
-        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable1KeyPressed(evt);
-            }
-        });
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable1.setOpaque(false);
         jScrollPane1.setViewportView(jTable1);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 115, 1224, 669));
 
         jLabel1.setBackground(new java.awt.Color(21, 36, 60));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/blue_heading.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 1, 1224, 107));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Table" }));
+        combo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboItemStateChanged(evt);
+            }
+        });
+        combo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                comboFocusGained(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Select Table Here");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(combo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+    private void comboFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboFocusGained
         // TODO add your handling code here:
         try {
+            Class.forName("java.sql.Driver");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+            st = conn.createStatement();
+            // Execute the SHOW TABLES query
+            String showTablesQuery = "SHOW TABLES;";
+            ResultSet rs = st.executeQuery(showTablesQuery);
+
+            // Iterate through the result set and add table names to the JComboBox
+            while (rs.next()) {
+                String tableName = rs.getString(1);
+                combo.addItem(tableName);
+            }
+
+            // Close the database connection
+            conn.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_comboFocusGained
+
+    private void comboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboItemStateChanged
+        // TODO add your handling code here:
+        String tableName = (combo.getSelectedItem()).toString();
+        
+        try {
                
-               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","isFault","Time of Fault"}, 0);
+               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","Voltage Relay","Current Relay","Time of Fault"}, 0);
                
                 Class.forName("java.sql.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
                 st = conn.createStatement();
-                String stmt="SELECT * FROM readings";
+                //String stmt="SELECT * FROM readings;";
+                String stmt="SELECT * \n" +
+                            "FROM " + tableName + "\n" +
+                            "WHERE sampTime <= (\n" +
+                            "    SELECT MAX(sampTime)\n" +
+                            "    FROM readings\n" +
+                            "    WHERE voltageRelay = true OR currentRelay = true\n" +
+                        ");";
                 st.executeQuery(stmt);  
                 String sql=stmt;
                 ResultSet rs = st.executeQuery(sql);
@@ -131,147 +186,18 @@ public class table extends javax.swing.JFrame {
                         rs.getDouble("sampTime"),
                         rs.getDouble("Vt"),
                         rs.getDouble("It"),
-                        rs.getTimestamp("time"),
                         rs.getDouble("Vm"),
                         rs.getDouble("Im"),
-                        rs.getBoolean("isFault")
+                        rs.getBoolean("voltageRelay"),
+                        rs.getBoolean("currentRelay"),
+                        rs.getTimestamp("time")
                 });
                 }
                jTable1.setModel(model);
            } catch (ClassNotFoundException | SQLException e) {
                JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
            }
-    }//GEN-LAST:event_formFocusGained
-
-    private void jTable1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseDragged
-        // TODO add your handling code here:
-         try {
-               
-               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","isFault","Time of Fault"}, 0);
-               
-                Class.forName("java.sql.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
-                st = conn.createStatement();
-                String stmt="SELECT * FROM readings";
-                st.executeQuery(stmt);  
-                String sql=stmt;
-                ResultSet rs = st.executeQuery(sql);
-                while(rs.next())
-                {     
-                    String a = rs.getString("row_id");
-                    String c = rs.getString("sampTime");
-                    String d = rs.getString("Vt");
-                    String e = rs.getString("It");
-                    String f = rs.getString("Vm");
-                    String g = rs.getString("Im");
-                    String h = rs.getString("isFault"); 
-                    String m = rs.getString("time");
-                    
-                    model.addRow(new Object[]{a,c,d,e,f,g,h,m});
-                }
-               jTable1.setModel(model);
-           } catch (ClassNotFoundException | SQLException e) {
-               JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-           }
-    }//GEN-LAST:event_jTable1MouseDragged
-
-    private void jTable1ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jTable1ComponentShown
-        // TODO add your handling code here:
-        try {
-               
-               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","isFault","Time of Fault"}, 0);
-               
-                Class.forName("java.sql.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
-                st = conn.createStatement();
-                String stmt="SELECT * FROM readings";
-                st.executeQuery(stmt);  
-                String sql=stmt;
-                ResultSet rs = st.executeQuery(sql);
-                while(rs.next())
-                {     
-
-                    model.addRow(new Object[]{
-                        rs.getInt("row_id"),
-                        rs.getDouble("sampTime"),
-                        rs.getDouble("Vt"),
-                        rs.getDouble("It"),
-                        rs.getTimestamp("time"),
-                        rs.getDouble("Vm"),
-                        rs.getDouble("Im"),
-                        rs.getBoolean("isFault")
-                });
-                }
-               jTable1.setModel(model);
-           } catch (ClassNotFoundException | SQLException e) {
-               JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-           }
-    }//GEN-LAST:event_jTable1ComponentShown
-
-    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
-        // TODO add your handling code here:
-        try {
-               
-               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","isFault","Time of Fault"}, 0);
-               
-                Class.forName("java.sql.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
-                st = conn.createStatement();
-                String stmt="SELECT * FROM readings";
-                st.executeQuery(stmt);  
-                String sql=stmt;
-                ResultSet rs = st.executeQuery(sql);
-                while(rs.next())
-                {     
-
-                    model.addRow(new Object[]{
-                        rs.getInt("row_id"),
-                        rs.getDouble("sampTime"),
-                        rs.getDouble("Vt"),
-                        rs.getDouble("It"),
-                        rs.getTimestamp("time"),
-                        rs.getDouble("Vm"),
-                        rs.getDouble("Im"),
-                        rs.getBoolean("isFault")
-                });
-                }
-               jTable1.setModel(model);
-           } catch (ClassNotFoundException | SQLException e) {
-               JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-           }
-    }//GEN-LAST:event_jTable1KeyPressed
-
-    private void jTable1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTable1FocusGained
-        // TODO add your handling code here:
-        try {
-               
-               DefaultTableModel model = new DefaultTableModel(new String[]{"Row_Id","Sampling Time","Vt","It","Vm","Im","isFault","Time of Fault"}, 0);
-               
-                Class.forName("java.sql.Driver");
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
-                st = conn.createStatement();
-                String stmt="SELECT * FROM readings";
-                st.executeQuery(stmt);  
-                String sql=stmt;
-                ResultSet rs = st.executeQuery(sql);
-                while(rs.next())
-                {     
-                    model.addRow(new Object[]{
-                        rs.getInt("row_id"),
-                        rs.getDouble("sampTime"),
-                        rs.getDouble("Vt"),
-                        rs.getDouble("It"),
-                        rs.getTimestamp("time"),
-                        rs.getDouble("Vm"),
-                        rs.getDouble("Im"),
-                        rs.getBoolean("isFault")
-                });
-                }
-               jTable1.setModel(model);
-           } catch (ClassNotFoundException | SQLException e) {
-               JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-           }
-    }//GEN-LAST:event_jTable1FocusGained
+    }//GEN-LAST:event_comboItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -309,7 +235,9 @@ public class table extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
