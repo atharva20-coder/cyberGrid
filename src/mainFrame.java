@@ -488,7 +488,7 @@ public class mainFrame extends javax.swing.JFrame {
                         lbl1.setForeground(Color.RED);
                         lbl1.setVisible(true);
                         // Update the isFault column to true
-                        String updateFaultSql = "UPDATE " + tableName + " SET voltageRelay = true, sampTime = CURRENT_TIMESTAMP, Vm =" + vm + "WHERE Vt =" + nxt;
+                        String updateFaultSql = "UPDATE " + tableName + " SET voltageRelay = true, time = CURRENT_TIMESTAMP, Vm =" + vm + "WHERE Vt =" + nxt;
                         st.executeUpdate(updateFaultSql);
                         new table().setVisible(true);
                         break;
@@ -566,7 +566,7 @@ public class mainFrame extends javax.swing.JFrame {
                         lbl1.setForeground(Color.RED);
                         lbl1.setVisible(true);
                         // Update the isFault column to true
-                        String updateFaultSql = "UPDATE " + tableName + " SET currentRelay = true, , sampTime = CURRENT_TIMESTAMP, Im =" + im + "WHERE It =" + nxt;
+                        String updateFaultSql = "UPDATE " + tableName + " SET currentRelay = true, time = CURRENT_TIMESTAMP, Im =" + im + "WHERE It =" + nxt;
                         st.executeUpdate(updateFaultSql);
                         new table().setVisible(true);
                         break;
