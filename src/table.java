@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,6 +30,16 @@ public class table extends javax.swing.JFrame {
         initComponents();
     }
 
+    // Method to check if the item exists in the combobox
+    private static boolean comboBoxContainsItem(JComboBox<String> comboBox, String item) {
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            if (comboBox.getItemAt(i).equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -135,6 +146,7 @@ public class table extends javax.swing.JFrame {
 
     private void comboFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comboFocusGained
         // TODO add your handling code here:
+        
         try {
             Class.forName("java.sql.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
@@ -146,11 +158,11 @@ public class table extends javax.swing.JFrame {
             // Iterate through the result set and add table names to the JComboBox
             while (rs.next()) {
                 String tableName = rs.getString(1);
-                combo.addItem(tableName);
+                if (!comboBoxContainsItem(combo, tableName)) {
+                    combo.addItem(tableName);
+                }
             }
-
-            // Close the database connection
-            conn.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -172,12 +184,17 @@ public class table extends javax.swing.JFrame {
                             "FROM " + tableName + "\n" +
                             "WHERE sampTime <= (\n" +
                             "    SELECT MAX(sampTime)\n" +
-                            "    FROM readings\n" +
+                            "    FROM "+tableName+"\n" +
                             "    WHERE voltageRelay = true OR currentRelay = true\n" +
                         ");";
                 st.executeQuery(stmt);  
                 String sql=stmt;
                 ResultSet rs = st.executeQuery(sql);
+                if (!rs.next()) {
+                    // The result set is empty, so change the query
+                    stmt = "SELECT * FROM " + tableName;
+                    rs = st.executeQuery(stmt);
+                }
                 while(rs.next())
                 {     
 
