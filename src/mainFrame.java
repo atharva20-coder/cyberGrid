@@ -7,6 +7,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,10 +56,17 @@ public class mainFrame extends javax.swing.JFrame {
         mann.setSelected(true);
         voltRelay.setSelected(true);
         sampleFreq.setEnabled(false);
-        ta2.append(mann.getText() + "\n\n");
-        ta2.append("In this example, we create a Font object with the desired style (in this case, Font.BOLD) and apply it to the JLabel using the setFont method. "
-                + "This will make the text in the JLabel appear in bold. You can adjust the font size, style, and other "
-                + "properties as needed to customize the appearance of your text.");    
+        ta2.setText(mann.getText() + "\n\n"+"The Mann-Morrison algorithm is a specific implementation of the mho distance protection algorithm. It is named after its developers, Robert Mann and R.J. Morrison, " +
+                    "who published a paper on the algorithm in 1971. The Mann-Morrison algorithm uses a circular mho characteristic on the impedance plane to detect and locate faults on transmission lines. The mho characteristic is defined " +
+                    "by its center at the relay location and the radius of the circle, which is set to the reach of the protection zone. \n" +
+                    "When a fault occurs within the protection zone, the measured impedance falls within the " +
+                    "mho characteristic, and the relay operates toisolate the fault. The algorithm operates in " +
+                    "the following steps: \n\n" +
+                    "1. Calculate the measured impedance using the voltage and currentphasors measured " +
+                    "at the relay location. \n" +
+                    "2. Convert the measured impedance to the impedance plane using complex arithmetic. \n" +
+                    "3. Check if the measured impedance falls within the mho characteristic. If it does, " +
+                    "then the relay sends a tripping signal to the circuit breaker toisolate the fault.");    
     }
     
     private static JFreeChart createChart(String title, String xAxisLabel, String yAxisLabel, JDBCCategoryDataset dataset) {
@@ -90,7 +98,6 @@ public class mainFrame extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        parentPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         control = new javax.swing.JPanel();
         start = new javax.swing.JButton();
@@ -101,32 +108,28 @@ public class mainFrame extends javax.swing.JFrame {
         upload = new javax.swing.JButton();
         threesample = new javax.swing.JRadioButton();
         mann = new javax.swing.JRadioButton();
-        voltRelay = new javax.swing.JRadioButton();
-        currRelay = new javax.swing.JRadioButton();
         tn = new javax.swing.JLabel();
-        tn1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        currRelay = new javax.swing.JRadioButton();
+        voltRelay = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         ta = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         ta2 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CyberGrid Gaurdian");
         setBackground(new java.awt.Color(0, 0, 0));
-
-        parentPanel.setBackground(new java.awt.Color(21, 36, 60));
-        parentPanel.setForeground(new java.awt.Color(255, 255, 255));
-        parentPanel.setPreferredSize(new java.awt.Dimension(1790, 660));
-        parentPanel.setLayout(new java.awt.BorderLayout());
 
         mainPanel.setBackground(new java.awt.Color(21, 36, 60));
 
         control.setBackground(new java.awt.Color(21, 36, 60));
         control.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Control Panel", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 16), new java.awt.Color(255, 255, 255))); // NOI18N
         control.setForeground(new java.awt.Color(204, 204, 204));
-        control.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         start.setBackground(new java.awt.Color(255, 255, 255));
         start.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
@@ -142,13 +145,11 @@ public class mainFrame extends javax.swing.JFrame {
                 startActionPerformed(evt);
             }
         });
-        control.add(start, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 920, 60));
 
         sampleFreq.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
         sampleFreq.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         sampleFreq.setText("50000");
         sampleFreq.setBorder(null);
-        control.add(sampleFreq, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 210, 30));
 
         plotGraph.setBackground(new java.awt.Color(255, 255, 255));
         plotGraph.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
@@ -158,28 +159,24 @@ public class mainFrame extends javax.swing.JFrame {
                 plotGraphActionPerformed(evt);
             }
         });
-        control.add(plotGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 433, 63));
 
         lbl1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         lbl1.setForeground(new java.awt.Color(255, 255, 0));
         lbl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl1.setText("Click \"Start\" to process");
-        control.add(lbl1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 433, 53));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Sampling Frequency:");
-        control.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 190, 30));
 
         upload.setBackground(new java.awt.Color(255, 255, 255));
         upload.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
-        upload.setText("Attach CSV File");
+        upload.setText("Click to upload custom CSV file");
         upload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadActionPerformed(evt);
             }
         });
-        control.add(upload, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 433, 63));
 
         threesample.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(threesample);
@@ -188,7 +185,6 @@ public class mainFrame extends javax.swing.JFrame {
         threesample.setText("Three Sample Technique");
         threesample.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         threesample.setOpaque(false);
-        control.add(threesample, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, 430, 60));
 
         mann.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(mann);
@@ -197,16 +193,24 @@ public class mainFrame extends javax.swing.JFrame {
         mann.setText("Mann Morrison Technique");
         mann.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         mann.setOpaque(false);
-        control.add(mann, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 430, 60));
 
-        voltRelay.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup2.add(voltRelay);
-        voltRelay.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        voltRelay.setForeground(new java.awt.Color(255, 255, 255));
-        voltRelay.setText("Over Voltage Relay");
-        voltRelay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        voltRelay.setOpaque(false);
-        control.add(voltRelay, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 440, 30));
+        tn.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        tn.setForeground(new java.awt.Color(255, 255, 255));
+        tn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tn.setText("readings");
+        tn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        jButton1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jButton1.setText("Reset");
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(21, 36, 60));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
 
         currRelay.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(currRelay);
@@ -215,18 +219,118 @@ public class mainFrame extends javax.swing.JFrame {
         currRelay.setText("Over Current Relay");
         currRelay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         currRelay.setOpaque(false);
-        control.add(currRelay, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, 430, 30));
 
-        tn.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        tn.setForeground(new java.awt.Color(255, 255, 255));
-        tn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tn.setText("readings");
-        control.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 270, 60));
+        voltRelay.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(voltRelay);
+        voltRelay.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        voltRelay.setForeground(new java.awt.Color(255, 255, 255));
+        voltRelay.setText("Over Voltage Relay");
+        voltRelay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        voltRelay.setOpaque(false);
 
-        tn1.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        tn1.setForeground(new java.awt.Color(255, 255, 255));
-        tn1.setText("Default Table :");
-        control.add(tn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 150, 60));
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Select Relays : ");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(voltRelay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(currRelay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(voltRelay, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(currRelay, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton2.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        jButton2.setText("Show Table");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout controlLayout = new javax.swing.GroupLayout(control);
+        control.setLayout(controlLayout);
+        controlLayout.setHorizontalGroup(
+            controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlLayout.createSequentialGroup()
+                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(controlLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(sampleFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(controlLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(controlLayout.createSequentialGroup()
+                                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(mann, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+                                .addGap(240, 240, 240)
+                                .addComponent(threesample, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(controlLayout.createSequentialGroup()
+                                .addComponent(upload)
+                                .addGap(13, 13, 13)
+                                .addComponent(tn, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(controlLayout.createSequentialGroup()
+                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(plotGraph, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(start, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lbl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(84, Short.MAX_VALUE))
+        );
+        controlLayout.setVerticalGroup(
+            controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(controlLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sampleFreq, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mann, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(threesample, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(controlLayout.createSequentialGroup()
+                        .addComponent(plotGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(lbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(upload, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(controlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jButton1)
+                        .addComponent(tn, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+                .addGap(24, 24, 24))
+        );
+
+        controlLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, start});
 
         ta.setEditable(false);
         ta.setColumns(20);
@@ -244,53 +348,50 @@ public class mainFrame extends javax.swing.JFrame {
         ta2.setLineWrap(true);
         ta2.setRows(5);
         ta2.setWrapStyleWord(true);
+        ta2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         ta2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(ta2);
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 1, 48)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("CyberGrid: Gaurdian");
-
-        jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("Made by: Atharva Sandip Joshi (31)");
+        jLabel3.setText("CyberGrid Gaurdian");
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addGap(1310, 1310, 1310))
+            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(control, javax.swing.GroupLayout.PREFERRED_SIZE, 981, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(control, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(control, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(control, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        parentPanel.add(mainPanel, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(parentPanel, java.awt.BorderLayout.CENTER);
+        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -306,7 +407,6 @@ public class mainFrame extends javax.swing.JFrame {
             int dotIndex = fileNameWithExtension.lastIndexOf('.');
             String files = (dotIndex == -1) ? fileNameWithExtension : fileNameWithExtension.substring(0, dotIndex);
             //System.out.println("File Name without Extension: " + files);
-            tn1.setText("Selected Table :");
             tn.setText(files.toLowerCase());
             tableName = files.toLowerCase();
                 try {
@@ -345,7 +445,6 @@ public class mainFrame extends javax.swing.JFrame {
         }
 
         lbl1.setText("Suucessful Action..");
-        new table().setVisible(true);
     }//GEN-LAST:event_uploadActionPerformed
 
     private void plotGraphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plotGraphActionPerformed
@@ -355,17 +454,17 @@ public class mainFrame extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid", "root", "root");
                 st = conn.createStatement();
-                String stmt = "SELECT sampTime, Vt, It, Vm\n" +
-                                    "FROM "+ tableName +"\n" +
-                                    "WHERE sampTime <= (\n" +
-                                    "    SELECT MAX(sampTime)\n" +
-                                    "    FROM readings\n" +
-                                    "    WHERE voltageRelay = true\n" +
-                                ");";
+                String stmt = "SELECT sampTime, Vt, Vm\n" +
+                                "FROM " + tableName + "\n" +
+                                "WHERE sampTime <= (\n" +
+                                "    SELECT MIN(sampTime)\n" +
+                                "    FROM " + tableName + "\n" +
+                                "    WHERE voltageRelay = true\n" +
+                            ");";
                 ResultSet rs = st.executeQuery(stmt);
                 if (!rs.next()) {
                     // The result set is empty, so change the query
-                    stmt = "SELECT sampTime, Vt, It from " + tableName;
+                    stmt = "SELECT sampTime, Vt from " + tableName;
                     rs = st.executeQuery(stmt);
                 }
                 JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn, stmt);
@@ -390,17 +489,17 @@ public class mainFrame extends javax.swing.JFrame {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid", "root", "root");
                 st = conn.createStatement();
-                String stmt = "SELECT sampTime, Vt, It, Im\n" +
-                                    "FROM readings\n" +
+                String stmt = "SELECT sampTime, It, Im\n" +
+                                    "FROM " +tableName+ "\n" +
                                     "WHERE sampTime <= (\n" +
                                     "    SELECT MAX(sampTime)\n" +
-                                    "    FROM readings\n" +
+                                    "    FROM "+ tableName +"\n" +
                                     "    WHERE currentRelay = true\n" +
                                 ");";
                 ResultSet rs = st.executeQuery(stmt);
                 if (!rs.next()) {
                     // The result set is empty, so change the query
-                    stmt = "SELECT sampTime, Vt, It from " + tableName;
+                    stmt = "SELECT sampTime, It from " + tableName;
                     rs = st.executeQuery(stmt);
                 }
                 JDBCCategoryDataset dataset = new JDBCCategoryDataset(conn, stmt);
@@ -427,9 +526,9 @@ public class mainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         // MANN MORRISON TECHNIQUE + VOLTAGE RELAY SELECTED
         if(mann.isSelected() && voltRelay.isSelected()){
-            ta.append("MANN MORRISON TECHNIQUE + VOLTAGE RELAY SELECTED \n CONNECTED DATABASE: "+ tableName +"\n Processing Started\n");
+            ta.setText("MANN MORRISON TECHNIQUE + VOLTAGE RELAY SELECTED \nCONNECTED To DATABASE: "+tableName+"\nProcessing Started\n");
             boolean isfault = false;
-            double f = Integer.parseInt(sampleFreq.getText());
+            //double f = Integer.parseInt(sampleFreq.getText());
             //double deltaT = 1/f;
             final double omega = 314.159265;
             try{
@@ -513,7 +612,7 @@ public class mainFrame extends javax.swing.JFrame {
         }
         // MANN MORRISON TECHNIQUE + CURRENT RELAY SELECTED
         else if(mann.isSelected() && currRelay.isSelected()){
-            ta.append("MANN MORRISON TECHNIQUE + CURRENT RELAY SELECTED \n CONNECTED DATABASE: "+ tableName +"\n Processing Started\n");
+            ta.setText("MANN MORRISON TECHNIQUE + CURRENT RELAY SELECTED \nCONNECTED DATABASE: "+ tableName +"\nProcessing Started\n");
             boolean isfault = false;
             double f = Integer.parseInt(sampleFreq.getText());
             double deltaT = 1/f;
@@ -736,6 +835,45 @@ public class mainFrame extends javax.swing.JFrame {
         start.setBackground(Color.yellow);
     }//GEN-LAST:event_startMouseEntered
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int reply = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset. This will alter your database?", "System Notification", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            mann.setSelected(true);
+            voltRelay.setSelected(true);
+            sampleFreq.setEnabled(false);
+            ta.setText("Result: \n");
+            ta.setForeground(Color.black);
+            ta2.setText(mann.getText() + "\n\n" + "The Mann-Morrison algorithm is a specific implementation of the mho distance protection algorithm. It is named after its developers, Robert Mann and R.J. Morrison, " +
+                        "who published a paper on the algorithm in 1971. The Mann-Morrison algorithm uses a circular mho characteristic on the impedance " +
+                        "plane to detect and locate faults on transmission lines. The mho characteristic is defined " +
+                        "by its center at the relay location and the radius of the circle, which is set to the reach of " +
+                        "the protection zone. \n" +
+                        "When a fault occurs within the protection zone, the measured impedance falls within the " +
+                        "mho characteristic, and the relay operates toisolate the fault. The algorithm operates in " +
+                        "the following steps: \n\n" +
+                        "1. Calculate the measured impedance using the voltage and currentphasors measured " +
+                        "at the relay location. \n" +
+                        "2. Convert the measured impedance to the impedance plane using complex arithmetic. \n" +
+                        "3. Check if the measured impedance falls within the mho characteristic. If it does, " +
+                        "then the relay sends a tripping signal to the circuit breaker toisolate the fault.");
+                Connection con = null;
+                Statement st = null;
+            try{
+                con = DriverManager.getConnection("jdbc:mysql://localhost/cyberGrid","root","root");
+                st = con.createStatement();
+                String sqlconn = "";
+            }catch(HeadlessException | SQLException ex){
+              JOptionPane.showMessageDialog(null,ex.getMessage());
+            }  
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new table().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -776,15 +914,17 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JPanel control;
     private javax.swing.JRadioButton currRelay;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JRadioButton mann;
-    private javax.swing.JPanel parentPanel;
     private javax.swing.JButton plotGraph;
     private javax.swing.JTextField sampleFreq;
     private javax.swing.JButton start;
@@ -792,7 +932,6 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea ta2;
     private javax.swing.JRadioButton threesample;
     private javax.swing.JLabel tn;
-    private javax.swing.JLabel tn1;
     private javax.swing.JButton upload;
     private javax.swing.JRadioButton voltRelay;
     // End of variables declaration//GEN-END:variables
